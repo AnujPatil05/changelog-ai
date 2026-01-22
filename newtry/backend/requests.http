@@ -1,0 +1,15 @@
+### Get Changelog
+GET http://localhost:3001/api/changelog/test-user/test-repo
+
+### Update Changelog
+PUT http://localhost:3001/api/changelog/test-user/test-repo
+Content-Type: application/json
+
+{
+    "version": "v1.0.0-draft",
+    "changes": {
+        "features": ["New updated feature"],
+        "fixes": ["Fixed a bug"],
+        "improvements": []
+    }
+}
