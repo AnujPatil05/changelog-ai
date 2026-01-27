@@ -5,6 +5,8 @@ import { ArrowRight } from "lucide-react";
 
 import { AddRepoDialog } from "@/components/add-repo-dialog";
 
+export const dynamic = 'force-dynamic';
+
 export default async function DashboardHome() {
     const repos = await getRepos();
 

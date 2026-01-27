@@ -10,6 +10,8 @@ interface Props {
     }>;
 }
 
+export const dynamic = 'force-dynamic';
+
 export default async function ChangelogPage({ params }: Props) {
     const { username, repo } = await params;
     const data = await getChangelog(username, repo);
