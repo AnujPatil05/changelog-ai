@@ -1,10 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { updateChangelog } from "@/lib/api";
+import { updateChangelog, Changes, Version } from "@/lib/api";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { X, Plus, Save, Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -12,25 +11,25 @@ import { useRouter } from "next/navigation";
 interface EditorProps {
     username: string;
     repo: string;
-    versionData: any;
+    versionData: Version;
 }
 
 export default function Editor({ username, repo, versionData }: EditorProps) {
-    const [changes, setChanges] = useState(versionData.changes);
+    const [changes, setChanges] = useState<Changes>(versionData.changes);
     const [saving, setSaving] = useState(false);
     const router = useRouter();
 
     const removeItem = (category: string, index: number) => {
-        setChanges((prev: any) => ({
+        setChanges((prev: Changes) => ({
             ...prev,
-            [category]: prev[category].filter((_: any, i: number) => i !== index)
+            [category]: prev[category].filter((_: string, i: number) => i !== index)
         }));
     };
 
     const addItem = (category: string) => {
         const item = prompt(`Add new ${category} item:`);
         if (item) {
-            setChanges((prev: any) => ({
+            setChanges((prev: Changes) => ({
                 ...prev,
                 [category]: [...(prev[category] || []), item]
             }));

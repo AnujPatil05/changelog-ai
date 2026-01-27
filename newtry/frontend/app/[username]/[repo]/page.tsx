@@ -1,5 +1,4 @@
-import { getChangelog } from "@/lib/api";
-import { Badge } from "@/components/ui/badge";
+import { getChangelog, Version } from "@/lib/api";
 import Link from "next/link";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
@@ -30,7 +29,7 @@ export default async function ChangelogPage({ params }: Props) {
 
             <main className="container max-w-4xl mx-auto px-4 py-12">
                 <div className="space-y-12">
-                    {data.versions.map((version: any, i: number) => (
+                    {data.versions.map((version: Version, i: number) => (
                         <div key={i} className="relative pl-8 sm:pl-0">
                             {/* Timeline Line (Desktop only) */}
                             <div className="hidden sm:block absolute left-0 top-0 bottom-0 w-px bg-zinc-200 dark:bg-zinc-800 -ml-px sm:left-[-2rem] md:left-[-3rem]" />
@@ -51,7 +50,7 @@ export default async function ChangelogPage({ params }: Props) {
                                                 Features
                                             </h3>
                                             <ul className="space-y-2">
-                                                {version.changes.features.map((item: any, j: number) => (
+                                                {version.changes.features.map((item: string, j: number) => (
                                                     <li key={j} className="text-zinc-600 dark:text-zinc-300 prose prose-sm dark:prose-invert max-w-none">
                                                         <ReactMarkdown remarkPlugins={[remarkGfm]}>{item}</ReactMarkdown>
                                                     </li>
@@ -67,7 +66,7 @@ export default async function ChangelogPage({ params }: Props) {
                                                 Fixes
                                             </h3>
                                             <ul className="space-y-2">
-                                                {version.changes.fixes.map((item: any, j: number) => (
+                                                {version.changes.fixes.map((item: string, j: number) => (
                                                     <li key={j} className="text-zinc-600 dark:text-zinc-300 prose prose-sm dark:prose-invert max-w-none">
                                                         <ReactMarkdown remarkPlugins={[remarkGfm]}>{item}</ReactMarkdown>
                                                     </li>
@@ -83,7 +82,7 @@ export default async function ChangelogPage({ params }: Props) {
                                                 Improvements
                                             </h3>
                                             <ul className="space-y-2">
-                                                {version.changes.improvements.map((item: any, j: number) => (
+                                                {version.changes.improvements.map((item: string, j: number) => (
                                                     <li key={j} className="text-zinc-600 dark:text-zinc-300 prose prose-sm dark:prose-invert max-w-none">
                                                         <ReactMarkdown remarkPlugins={[remarkGfm]}>{item}</ReactMarkdown>
                                                     </li>

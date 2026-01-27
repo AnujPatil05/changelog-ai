@@ -1,8 +1,7 @@
 import { getRepos } from "@/lib/api";
 import Link from "next/link";
 import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Plus, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 import { AddRepoDialog } from "@/components/add-repo-dialog";
 

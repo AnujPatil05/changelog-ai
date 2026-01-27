@@ -1,11 +1,14 @@
+export interface Changes {
+    features: string[];
+    fixes: string[];
+    improvements: string[];
+    [key: string]: string[]; // Add index signature for editor access
+}
+
 export interface Version {
     version: string;
     date: string;
-    changes: {
-        features: string[];
-        fixes: string[];
-        improvements: string[];
-    };
+    changes: Changes;
 }
 
 export interface ChangelogData {
@@ -35,7 +38,7 @@ export async function getChangelog(username: string, repo: string): Promise<Chan
     }
 }
 
-export async function updateChangelog(username: string, repo: string, version: string, changes: any) {
+export async function updateChangelog(username: string, repo: string, version: string, changes: Changes) {
     const res = await fetch(`${API_URL}/api/changelog/${username}/${repo}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },

@@ -65,8 +65,8 @@ export function AddRepoDialog() {
             setOpen(false);
             setRepoInput('');
             router.refresh(); // Refresh Server Components to show new repo
-        } catch (err: any) {
-            setError(err.message);
+        } catch (err: unknown) {
+            setError(err instanceof Error ? err.message : 'An error occurred');
         } finally {
             setLoading(false);
         }
