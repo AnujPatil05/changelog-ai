@@ -16,7 +16,8 @@ export interface ChangelogData {
     versions: Version[];
 }
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
+const envUrl = process.env.NEXT_PUBLIC_API_URL;
+const API_URL = (envUrl && envUrl.trim() !== '') ? envUrl : 'http://localhost:3001';
 
 export async function getChangelog(username: string, repo: string): Promise<ChangelogData> {
     try {
