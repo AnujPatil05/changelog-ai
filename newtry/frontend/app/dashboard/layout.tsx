@@ -4,6 +4,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { LogoutButton } from "@/components/logout-button";
 
 export default async function DashboardLayout({
     children,
@@ -34,6 +35,7 @@ export default async function DashboardLayout({
                         <Button variant="ghost" asChild>
                             <Link href="/">View Public Page</Link>
                         </Button>
+                        <LogoutButton />
                     </div>
                 </div>
             </header>
