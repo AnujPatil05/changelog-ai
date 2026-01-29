@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import { query } from '../db';
+import { strictRateLimitMiddleware } from '../middleware/rateLimit';
 
 const router = Router();
 
@@ -19,7 +20,8 @@ router.get('/list', async (req, res) => {
 import fetch from 'node-fetch';
 import { generateChangelog } from '../services/ai';
 
-router.post('/init', async (req, res) => {
+// Apply strict rate limit to expensive /init endpoint (5 requests per hour)
+router.post('/init', strictRateLimitMiddleware, async (req, res) => {
     const { username, repo, token } = req.body;
 
     try {
