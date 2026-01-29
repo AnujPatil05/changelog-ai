@@ -21,6 +21,17 @@ export interface ChangelogData {
     versions: Version[];
 }
 
+export interface JobStatus {
+    id: string;
+    status: 'pending' | 'processing' | 'completed' | 'failed';
+    repoName: string;
+    createdAt: string;
+    updatedAt: string;
+    result?: any;
+    error?: string;
+    progress?: number;
+}
+
 const envUrl = process.env.NEXT_PUBLIC_API_URL;
 const API_URL = (envUrl && envUrl.trim() !== '') ? envUrl : 'http://localhost:3001';
 
@@ -64,3 +75,42 @@ export async function getRepos(): Promise<string[]> {
         return [];
     }
 }
+
+/**
+ * Start async changelog generation - returns job ID for polling
+ */
+export async function initRepoAsync(username: string, repo: string, token?: string): Promise<{ success: boolean; jobId?: string; error?: string }> {
+    try {
+        const res = await fetch(`${API_URL}/api/changelog/init-async`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username, repo, token })
+        });
+
+        if (!res.ok) {
+            const err = await res.json();
+            return { success: false, error: err.error || 'Failed to start job' };
+        }
+
+        const data = await res.json();
+        return { success: true, jobId: data.jobId };
+    } catch (e: any) {
+        console.error(e);
+        return { success: false, error: e.message };
+    }
+}
+
+/**
+ * Poll job status
+ */
+export async function getJobStatus(jobId: string): Promise<JobStatus | null> {
+    try {
+        const res = await fetch(`${API_URL}/api/changelog/job/${jobId}`, { cache: 'no-store' });
+        if (!res.ok) return null;
+        return await res.json();
+    } catch (e) {
+        console.error(e);
+        return null;
+    }
+}
+
