@@ -1,65 +1,63 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Shield, Lock, Eye, Github, CheckCircle2, Sparkles } from "lucide-react";
+import { Shield, Lock, Eye, Github, CheckCircle2 } from "lucide-react";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 export const dynamic = 'force-dynamic';
 
 export default function Home() {
   return (
     <div className="flex flex-col min-h-screen">
-      <header className="px-4 lg:px-6 h-14 flex items-center border-b border-purple-900/20 bg-[#1a1625]/95 backdrop-blur-sm sticky top-0 z-50">
-        <Link className="flex items-center justify-center font-bold text-xl text-white gap-2" href="#">
-          <Sparkles className="h-5 w-5 text-purple-400" />
+      <header className="px-4 lg:px-6 h-14 flex items-center border-b bg-background/95 backdrop-blur-sm sticky top-0 z-50">
+        <Link className="flex items-center justify-center font-bold text-xl" href="#">
           Changelog AI
         </Link>
-        <nav className="ml-auto flex gap-4 sm:gap-6">
-          <Link className="text-sm font-medium text-zinc-400 hover:text-purple-400 transition-colors" href="#features">
+        <nav className="ml-auto flex items-center gap-4 sm:gap-6">
+          <Link className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors" href="#features">
             Features
           </Link>
-          <Link className="text-sm font-medium text-zinc-400 hover:text-purple-400 transition-colors" href="#security">
+          <Link className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors" href="#security">
             Security
           </Link>
-          <Link className="text-sm font-medium text-zinc-400 hover:text-purple-400 transition-colors" href="#pricing">
+          <Link className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors" href="#pricing">
             Pricing
           </Link>
+          <ThemeToggle />
         </nav>
       </header>
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48 bg-gradient-to-b from-[#1a1625] via-[#1e1a2e] to-[#252232] text-white">
+        <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48 bg-background">
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center space-y-4 text-center">
-              <div className="inline-flex items-center justify-center p-3 bg-gradient-to-br from-purple-500/20 to-violet-600/20 rounded-full mb-4 border border-purple-500/30">
-                <Sparkles className="h-8 w-8 text-purple-400" />
-              </div>
-              <div className="space-y-2">
-                <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none bg-gradient-to-r from-white via-purple-200 to-purple-400 bg-clip-text text-transparent">
+              <div className="space-y-4">
+                <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl">
                   Turn Commits into Changelogs, Instantly.
                 </h1>
-                <p className="mx-auto max-w-[700px] text-zinc-400 md:text-xl">
+                <p className="mx-auto max-w-[700px] text-muted-foreground md:text-xl">
                   Stop writing changelogs manually. Connect your repo and let AI do the magic.
                 </p>
               </div>
               <div className="space-x-4 pt-4">
-                <Button className="bg-gradient-to-r from-purple-600 to-violet-600 hover:from-purple-500 hover:to-violet-500 text-white shadow-lg shadow-purple-600/25 px-8" asChild>
+                <Button asChild>
                   <Link href="/dashboard">Get Started</Link>
                 </Button>
-                <Button variant="outline" className="text-purple-300 border-purple-500/50 hover:bg-purple-500/10 hover:text-purple-200">
+                <Button variant="outline">
                   View Demo
                 </Button>
               </div>
               {/* Trust Badges */}
-              <div className="flex items-center gap-6 pt-8 text-sm text-zinc-400">
+              <div className="flex items-center gap-6 pt-8 text-sm text-muted-foreground">
                 <span className="flex items-center gap-1.5">
-                  <Shield className="h-4 w-4 text-purple-400" />
+                  <Shield className="h-4 w-4" />
                   OAuth 2.0 Secured
                 </span>
                 <span className="flex items-center gap-1.5">
-                  <Lock className="h-4 w-4 text-purple-400" />
+                  <Lock className="h-4 w-4" />
                   SSL Encrypted
                 </span>
                 <span className="flex items-center gap-1.5">
-                  <Eye className="h-4 w-4 text-purple-400" />
+                  <Eye className="h-4 w-4" />
                   Read-Only Access
                 </span>
               </div>
