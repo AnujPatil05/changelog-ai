@@ -9,7 +9,6 @@ import { signOut } from "next-auth/react";
 
 const sidebarItems = [
     { name: "Home", icon: Home, href: "/dashboard" },
-    { name: "Repositories", icon: Book, href: "/dashboard" },
     { name: "Settings", icon: Settings, href: "/dashboard/settings" },
     { name: "Profile", icon: User, href: "/dashboard/profile" },
 ];
