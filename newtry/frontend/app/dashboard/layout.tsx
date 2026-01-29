@@ -33,9 +33,6 @@ export default async function DashboardLayout({
                     </div>
 
                     <div className="flex gap-4 items-center">
-                        <Button variant="ghost" size="icon" className="text-zinc-500">
-                            <Bell className="h-5 w-5" />
-                        </Button>
                         <div className="flex items-center gap-3 pl-4 border-l border-zinc-200 dark:border-zinc-800">
                             <div className="text-right hidden md:block">
                                 <p className="text-sm font-medium leading-none">{session.user?.name}</p>
