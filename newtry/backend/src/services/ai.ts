@@ -1,4 +1,5 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
+import { getCachedChangelog, setCachedChangelog } from "./cache";
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || "");
 
@@ -9,13 +10,19 @@ export const generateChangelog = async (commits: any[]) => {
         return { features: [], fixes: [], improvements: [] };
     }
 
+    // Check cache first to avoid burning AI credits
+    const cached = await getCachedChangelog(commits);
+    if (cached) {
+        console.log('[AI] Using cached response');
+        return cached;
+    }
+
     const commitMessages = commits.map((c: any) => `- ${c.message}`).join('\n');
     const prompt = `
 You are a changelog writer. Convert these git commits into user-friendly changelog entries.
 
 Rules:
 - Group by type: Features, Fixes, Improvements
-- Use present tense ("Add" not "Added")
 - Use present tense ("Add" not "Added")
 - Use **bold** for emphasis on important components
 - Use \`code\` ticks for file names, variable names, or technical terms
@@ -41,7 +48,12 @@ Output JSON only in this format:
             const text = response.text();
             console.log("RAW AI RESPONSE:", text);
             const jsonString = text.replace(/```json\n|\n```/g, '').trim();
-            return JSON.parse(jsonString);
+            const parsed = JSON.parse(jsonString);
+
+            // Cache successful response for future use
+            await setCachedChangelog(commits, parsed);
+
+            return parsed;
         } catch (error: any) {
             const fs = require('fs');
             fs.appendFileSync('ai-error.log', new Date().toISOString() + ': ' + error.message + '\n');
@@ -59,3 +71,4 @@ Output JSON only in this format:
 
     return attemptGeneration();
 };
+
