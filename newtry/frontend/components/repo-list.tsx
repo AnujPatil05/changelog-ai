@@ -45,7 +45,7 @@ export function RepoList({ initialRepos }: RepoListProps) {
                                             </svg>
                                         </div>
                                         <div>
-                                            <h3 className="font-semibold text-lg leading-none mb-1 break-all">{repo}</h3>
+                                            <h3 className="font-semibold text-lg leading-none mb-1 truncate max-w-[200px]">{repo}</h3>
                                             <p className="text-sm text-zinc-500">Last sync: 2 hours ago</p>
                                         </div>
                                     </div>

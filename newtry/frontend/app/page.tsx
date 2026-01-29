@@ -101,9 +101,6 @@ export default function Home() {
         <section id="security" className="w-full py-12 md:py-24 lg:py-32 bg-white dark:bg-gray-900">
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center text-center mb-12">
-              <div className="p-3 bg-green-100 dark:bg-green-900 rounded-full mb-4">
-                <Shield className="h-8 w-8 text-green-600 dark:text-green-400" />
-              </div>
               <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
                 Security & Privacy
               </h2>
@@ -164,8 +161,8 @@ export default function Home() {
               </div>
 
               {/* Privacy Promise */}
-              <div className="mt-8 p-6 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-xl text-center">
-                <p className="text-green-800 dark:text-green-200 font-medium">
+              <div className="mt-8 p-6 bg-muted border border-border rounded-xl text-center">
+                <p className="text-muted-foreground font-medium">
                   🔒 Our Promise: We only read commit messages to generate your changelog.
                   Your code stays private. Always.
                 </p>
