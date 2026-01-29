@@ -8,6 +8,9 @@ export const authOptions: NextAuthOptions = {
             clientSecret: process.env.GITHUB_SECRET!,
         }),
     ],
+    pages: {
+        signIn: '/signin',
+    },
     callbacks: {
         async jwt({ token, account }) {
             if (account) {
@@ -27,3 +30,4 @@ export const authOptions: NextAuthOptions = {
         strategy: "jwt",
     },
 };
+

@@ -99,13 +99,22 @@ export default function Editor({ username, repo, versionData }: EditorProps) {
                                 ))}
                                 {(!versionData.raw_commits || versionData.raw_commits.length === 0) && (
                                     <div className="p-8 flex flex-col items-center justify-center text-center h-full min-h-[200px]">
-                                        <div className="p-3 bg-zinc-100 dark:bg-zinc-800 rounded-full mb-4">
-                                            <GitCommit className="h-6 w-6 text-zinc-400" />
+                                        <div className="p-3 bg-gradient-to-br from-blue-100 to-purple-100 dark:from-blue-900/30 dark:to-purple-900/30 rounded-full mb-4">
+                                            <GitCommit className="h-6 w-6 text-blue-600 dark:text-blue-400" />
                                         </div>
-                                        <p className="text-zinc-600 dark:text-zinc-400 font-medium mb-1">No source commits yet</p>
-                                        <p className="text-zinc-500 text-sm max-w-[250px]">
-                                            Push commits to GitHub or re-sync this repository to see commit history here.
+                                        <p className="text-zinc-700 dark:text-zinc-300 font-semibold mb-1">No commits synced yet</p>
+                                        <p className="text-zinc-500 text-sm max-w-[280px] mb-4">
+                                            Sync your latest commits from GitHub to generate an AI-powered changelog.
                                         </p>
+                                        <Button
+                                            variant="default"
+                                            size="sm"
+                                            className="gap-2"
+                                            onClick={() => window.location.reload()}
+                                        >
+                                            <GitCommit className="h-4 w-4" />
+                                            Sync Commits
+                                        </Button>
                                     </div>
                                 )}
                             </div>
