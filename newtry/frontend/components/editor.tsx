@@ -98,8 +98,14 @@ export default function Editor({ username, repo, versionData }: EditorProps) {
                                     </div>
                                 ))}
                                 {(!versionData.raw_commits || versionData.raw_commits.length === 0) && (
-                                    <div className="p-8 text-center text-zinc-500 text-sm">
-                                        No source commits available for this version.
+                                    <div className="p-8 flex flex-col items-center justify-center text-center h-full min-h-[200px]">
+                                        <div className="p-3 bg-zinc-100 dark:bg-zinc-800 rounded-full mb-4">
+                                            <GitCommit className="h-6 w-6 text-zinc-400" />
+                                        </div>
+                                        <p className="text-zinc-600 dark:text-zinc-400 font-medium mb-1">No source commits yet</p>
+                                        <p className="text-zinc-500 text-sm max-w-[250px]">
+                                            Push commits to GitHub or re-sync this repository to see commit history here.
+                                        </p>
                                     </div>
                                 )}
                             </div>
