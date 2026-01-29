@@ -58,8 +58,9 @@ router.post('/init', async (req, res) => {
         const version = `v1.0.0-${new Date().toISOString().split('T')[0]}`;
 
         await query(
-            `INSERT INTO changelogs (repo_name, version, changes) VALUES ($1, $2, $3)`,
-            [fullName, version, JSON.stringify(aiResponse)]
+            `INSERT INTO changelogs (repo_name, version, changes, raw_commits) VALUES ($1, $2, $3, $4)
+             ON CONFLICT (repo_name, version) DO UPDATE SET changes = $3, raw_commits = $4`,
+            [fullName, version, JSON.stringify(aiResponse), JSON.stringify(commitData)]
         );
 
         res.json({ success: true, repo: fullName });
@@ -75,7 +76,7 @@ router.get('/:username/:repo', async (req, res) => {
 
     try {
         const result = await query(
-            `SELECT version, changes, created_at FROM changelogs WHERE repo_name = $1 ORDER BY created_at DESC`,
+            `SELECT version, changes, raw_commits, created_at FROM changelogs WHERE repo_name = $1 ORDER BY created_at DESC`,
             [fullName]
         );
 
@@ -83,7 +84,8 @@ router.get('/:username/:repo', async (req, res) => {
         const versions = result.rows.map((row: any) => ({
             version: row.version,
             date: new Date(row.created_at).toISOString().split('T')[0],
-            changes: row.changes // Postgres stores JSONB as object automatically
+            changes: row.changes, // Postgres stores JSONB as object automatically
+            raw_commits: row.raw_commits || []
         }));
 
         res.json({ repo: fullName, versions });
