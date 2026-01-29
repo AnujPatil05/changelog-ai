@@ -9,6 +9,11 @@ export interface Version {
     version: string;
     date: string;
     changes: Changes;
+    raw_commits?: {
+        message: string;
+        id: string;
+        author: string;
+    }[];
 }
 
 export interface ChangelogData {

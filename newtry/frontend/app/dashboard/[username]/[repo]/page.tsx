@@ -20,12 +20,6 @@ export default async function DashboardPage({ params }: Props) {
     const latestVersion = data.versions[0];
 
     return (
-        <div>
-            <div className="mb-8">
-                <h1 className="text-3xl font-bold mb-2">{data.repo}</h1>
-                <p className="text-zinc-500">Manage your changelogs</p>
-            </div>
-            <Editor username={username} repo={repo} versionData={latestVersion} />
-        </div>
+        <Editor username={username} repo={repo} versionData={latestVersion} />
     );
 }
