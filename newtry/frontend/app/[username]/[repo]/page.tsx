@@ -18,6 +18,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const { username, repo } = await params;
     const fullRepo = `${username}/${repo}`;
 
+    // Generate OG image URL with params
+    const ogImageUrl = `/api/og?repo=${encodeURIComponent(fullRepo)}&version=Latest`;
+
     return {
         title: `${fullRepo} Changelog - Changelog AI`,
         description: `View the latest updates, features, and bug fixes for ${fullRepo}. Auto-generated changelog powered by AI.`,
@@ -26,11 +29,20 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
             description: `Latest updates and releases for ${fullRepo}`,
             type: 'website',
             siteName: 'Changelog AI',
+            images: [
+                {
+                    url: ogImageUrl,
+                    width: 1200,
+                    height: 630,
+                    alt: `${fullRepo} Changelog`,
+                },
+            ],
         },
         twitter: {
             card: 'summary_large_image',
             title: `${fullRepo} Changelog`,
             description: `Latest updates and releases for ${fullRepo}`,
+            images: [ogImageUrl],
         },
         alternates: {
             canonical: `/${username}/${repo}`,
