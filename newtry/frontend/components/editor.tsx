@@ -61,19 +61,19 @@ export default function Editor({ username, repo, versionData }: EditorProps) {
     };
 
     return (
-        <div className="h-[calc(100vh-140px)] flex flex-col gap-6">
+        <div className="min-h-[calc(100vh-140px)] flex flex-col gap-6">
             {/* Header Info */}
             <div className="flex justify-between items-center px-1">
                 <div>
                     <h2 className="text-2xl font-bold tracking-tight">{repo}</h2>
-                    <p className="text-zinc-500">Managing changelogs for {versionData.version}</p>
+                    <p className="text-muted-foreground">Managing changelogs for {versionData.version}</p>
                 </div>
                 <div className="flex gap-2">
                     {/* Placeholder for future specific version actions */}
                 </div>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 h-full min-h-0">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 flex-1 min-h-[500px] lg:min-h-[600px]">
                 {/* Left Column: Source Commits */}
                 <div className="flex flex-col gap-4 h-full min-h-0">
                     <Card className="flex flex-col h-full overflow-hidden bg-white dark:bg-zinc-900 border-zinc-200 dark:border-zinc-800">

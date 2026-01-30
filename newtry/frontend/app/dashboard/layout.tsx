@@ -8,7 +8,7 @@ import { Sidebar } from "@/components/sidebar";
 import { DashboardContent } from "@/components/dashboard-content";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { CommandPalette } from "@/components/command-palette";
-import { Bell } from "lucide-react";
+import { MobileNav } from "@/components/mobile-nav";
 
 export default async function DashboardLayout({
     children,
@@ -26,21 +26,29 @@ export default async function DashboardLayout({
             {/* Command Palette - accessible with CMD+K */}
             <CommandPalette />
 
-            {/* Sidebar - stays locked during navigation */}
+            {/* Sidebar - hidden on mobile, shown on desktop */}
             <Sidebar />
 
             <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
                 {/* Header */}
                 <header className="h-16 border-b bg-card border-border flex items-center justify-between px-4 md:px-8 shrink-0">
-                    <div className="flex items-center gap-4">
-                        <Link href="/" className="font-bold text-lg md:hidden">
+                    <div className="flex items-center gap-3">
+                        {/* Mobile hamburger menu */}
+                        <MobileNav userName={session.user?.name || ""} />
+
+                        {/* Logo - links to landing page */}
+                        <Link href="/" className="font-bold text-lg">
                             Changelog AI
                         </Link>
                     </div>
 
                     <div className="flex gap-4 items-center">
                         <ThemeToggle />
-                        <div className="flex items-center gap-3 pl-4 border-l border-border">
+                        {/* User info - links to profile */}
+                        <Link
+                            href="/dashboard/profile"
+                            className="flex items-center gap-3 pl-4 border-l border-border hover:opacity-80 transition-opacity"
+                        >
                             <div className="text-right hidden md:block">
                                 <p className="text-sm font-medium leading-none">{session.user?.name}</p>
                                 <p className="text-xs text-muted-foreground truncate max-w-[150px]">{session.user?.email}</p>
@@ -49,7 +57,7 @@ export default async function DashboardLayout({
                                 <AvatarImage src={session.user?.image || ""} />
                                 <AvatarFallback>{session.user?.name?.[0]}</AvatarFallback>
                             </Avatar>
-                        </div>
+                        </Link>
                     </div>
                 </header>
 
@@ -62,4 +70,5 @@ export default async function DashboardLayout({
         </div>
     );
 }
+
 
