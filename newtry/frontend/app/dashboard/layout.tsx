@@ -6,6 +6,7 @@ import { redirect } from "next/navigation";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Sidebar } from "@/components/sidebar";
 import { DashboardContent } from "@/components/dashboard-content";
+import { ThemeToggle } from "@/components/theme-toggle";
 import { Bell } from "lucide-react";
 
 export default async function DashboardLayout({
@@ -34,6 +35,7 @@ export default async function DashboardLayout({
                     </div>
 
                     <div className="flex gap-4 items-center">
+                        <ThemeToggle />
                         <div className="flex items-center gap-3 pl-4 border-l border-border">
                             <div className="text-right hidden md:block">
                                 <p className="text-sm font-medium leading-none">{session.user?.name}</p>
