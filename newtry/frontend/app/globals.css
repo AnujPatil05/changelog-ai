@@ -242,3 +242,34 @@
     min-width: 0;
   }
 }
+
+/* Premium gradient utilities */
+@layer utilities {
+
+  /* Subtle radial glow for hero sections */
+  .gradient-radial-glow {
+    background: radial-gradient(ellipse 80% 50% at 50% -20%,
+        oklch(0.72 0.19 195 / 0.15),
+        transparent);
+  }
+
+  /* Card shine effect */
+  .gradient-card-shine {
+    background: linear-gradient(135deg,
+        oklch(1 0 0 / 0.03) 0%,
+        transparent 50%,
+        oklch(0 0 0 / 0.02) 100%);
+  }
+
+  /* Cyan accent glow */
+  .glow-cyan {
+    box-shadow: 0 0 40px -10px oklch(0.72 0.19 195 / 0.5);
+  }
+
+  /* Dark mode depth gradient */
+  .dark .gradient-depth {
+    background: linear-gradient(180deg,
+        oklch(0.12 0.015 250) 0%,
+        oklch(0.10 0.02 250) 100%);
+  }
+}
