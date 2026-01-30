@@ -19,13 +19,13 @@ export default async function DashboardLayout({
     }
 
     return (
-        <div className="flex min-h-screen bg-zinc-50 dark:bg-zinc-950">
+        <div className="flex min-h-screen bg-background">
             {/* Sidebar */}
             <Sidebar />
 
-            <div className="flex-1 flex flex-col min-w-0">
+            <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
                 {/* Header */}
-                <header className="h-16 border-b bg-white dark:bg-zinc-900 border-zinc-200 dark:border-zinc-800 flex items-center justify-between px-4 md:px-8">
+                <header className="h-16 border-b bg-card border-border flex items-center justify-between px-4 md:px-8 shrink-0">
                     <div className="flex items-center gap-4">
                         <Link href="/" className="font-bold text-lg md:hidden">
                             Changelog AI
@@ -33,12 +33,12 @@ export default async function DashboardLayout({
                     </div>
 
                     <div className="flex gap-4 items-center">
-                        <div className="flex items-center gap-3 pl-4 border-l border-zinc-200 dark:border-zinc-800">
+                        <div className="flex items-center gap-3 pl-4 border-l border-border">
                             <div className="text-right hidden md:block">
                                 <p className="text-sm font-medium leading-none">{session.user?.name}</p>
-                                <p className="text-xs text-zinc-500 truncate max-w-[150px]">{session.user?.email}</p>
+                                <p className="text-xs text-muted-foreground truncate max-w-[150px]">{session.user?.email}</p>
                             </div>
-                            <Avatar className="h-9 w-9">
+                            <Avatar className="h-9 w-9 shrink-0">
                                 <AvatarImage src={session.user?.image || ""} />
                                 <AvatarFallback>{session.user?.name?.[0]}</AvatarFallback>
                             </Avatar>
@@ -46,7 +46,7 @@ export default async function DashboardLayout({
                     </div>
                 </header>
 
-                <main className="flex-1 p-4 md:p-8 overflow-y-auto">
+                <main className="flex-1 p-4 md:p-8 overflow-y-auto overflow-x-hidden">
                     {children}
                 </main>
             </div>

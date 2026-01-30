@@ -17,9 +17,9 @@ export function Sidebar() {
     const pathname = usePathname();
 
     return (
-        <div className="w-16 md:w-64 flex-col border-r bg-white dark:bg-zinc-950 border-zinc-200 dark:border-zinc-800 hidden md:flex h-screen sticky top-0">
-            <div className="h-16 flex items-center justify-center md:justify-start md:px-6 border-b border-zinc-200 dark:border-zinc-800">
-                <div className="bg-black text-white p-1 rounded-md mr-2">
+        <div className="w-16 md:w-64 flex-col border-r bg-sidebar border-sidebar-border hidden md:flex h-screen sticky top-0 shrink-0 overflow-hidden">
+            <div className="h-16 flex items-center justify-center md:justify-start md:px-6 border-b border-sidebar-border shrink-0">
+                <div className="bg-primary text-primary-foreground p-1 rounded-md mr-2">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                         <path d="M2 17L12 22L22 17" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
@@ -38,7 +38,7 @@ export function Sidebar() {
                                 variant="ghost"
                                 className={cn(
                                     "w-full justify-start gap-2",
-                                    isActive ? "bg-zinc-100 dark:bg-zinc-900 text-zinc-900 dark:text-zinc-50" : "text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-50"
+                                    isActive ? "bg-sidebar-accent text-sidebar-accent-foreground" : "text-muted-foreground hover:text-foreground"
                                 )}
                             >
                                 <item.icon className="h-5 w-5" />
@@ -49,10 +49,10 @@ export function Sidebar() {
                 })}
             </div>
 
-            <div className="p-4 border-t border-zinc-200 dark:border-zinc-800">
+            <div className="p-4 border-t border-sidebar-border shrink-0">
                 <Button
                     variant="ghost"
-                    className="w-full justify-start gap-2 text-zinc-500 hover:text-red-500"
+                    className="w-full justify-start gap-2 text-muted-foreground hover:text-destructive"
                     onClick={() => signOut({ callbackUrl: "/" })}
                 >
                     <LogOut className="h-5 w-5" />

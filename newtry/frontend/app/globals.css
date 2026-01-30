@@ -206,10 +206,50 @@
 @layer base {
   * {
     @apply border-border outline-ring/50;
+    box-sizing: border-box;
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
   }
 
   body {
     @apply bg-background text-foreground;
-    letter-spacing: var(--tracking-normal);
+    line-height: 1.5;
+    font-family: var(--font-sans);
+  }
+
+  /* Image constraints - prevent overflow */
+  img,
+  video {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  /* Line-height fixes for headings with Fraunces */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    line-height: 1.2;
+    text-wrap: balance;
+  }
+
+  /* Prevent text overflow */
+  p,
+  span,
+  a {
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+
+  /* Ensure flex containers don't collapse */
+  .flex {
+    min-width: 0;
   }
 }
