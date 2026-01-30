@@ -94,7 +94,7 @@ export function RepoList({ initialRepos, isLoading = false }: RepoListProps) {
                                             </div>
                                             <div className="min-w-0">
                                                 <h3 className="font-semibold text-lg leading-none mb-1 truncate">{repo}</h3>
-                                                <p className="text-sm text-muted-foreground">Last sync: 2 hours ago</p>
+                                                <p className="text-sm text-muted-foreground">Click to manage changelog</p>
                                             </div>
                                         </div>
                                         <ArrowRight className="h-5 w-5 text-muted-foreground shrink-0" />
