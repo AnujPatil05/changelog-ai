@@ -6,6 +6,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Shield, Lock, Eye } from "lucide-react";
 import { fadeInUp, staggerContainer, scaleOnHover } from "@/lib/motion";
+import { LivePulseCompact } from "@/components/live-pulse";
 
 export function HeroSection() {
     const containerRef = useRef<HTMLElement>(null);
@@ -89,6 +90,11 @@ export function HeroSection() {
                             <Eye className="h-4 w-4" />
                             Read-Only Access
                         </span>
+                    </motion.div>
+
+                    {/* Live Pulse - real-time activity indicator */}
+                    <motion.div className="pt-6" variants={fadeInUp}>
+                        <LivePulseCompact />
                     </motion.div>
                 </motion.div>
             </div>

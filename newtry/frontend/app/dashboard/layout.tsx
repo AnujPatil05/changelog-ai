@@ -7,6 +7,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Sidebar } from "@/components/sidebar";
 import { DashboardContent } from "@/components/dashboard-content";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { CommandPalette } from "@/components/command-palette";
 import { Bell } from "lucide-react";
 
 export default async function DashboardLayout({
@@ -22,6 +23,9 @@ export default async function DashboardLayout({
 
     return (
         <div className="flex min-h-screen bg-background">
+            {/* Command Palette - accessible with CMD+K */}
+            <CommandPalette />
+
             {/* Sidebar - stays locked during navigation */}
             <Sidebar />
 
