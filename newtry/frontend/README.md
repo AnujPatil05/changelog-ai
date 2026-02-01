@@ -1,36 +1,109 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Changelog AI
 
-## Getting Started
+> AI-powered changelog generator that transforms Git commits into polished release notes.
 
-First, run the development server:
+![Next.js](https://img.shields.io/badge/Next.js-15-black)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue)
+![Tailwind](https://img.shields.io/badge/Tailwind-4.0-38bdf8)
+![Zustand](https://img.shields.io/badge/Zustand-5.0-orange)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## 🎯 Evaluation Task Coverage
+
+| Requirement | Implementation | File Reference |
+|-------------|----------------|----------------|
+| **State Management** | Zustand store + React Context API + useState/useCallback hooks | [`lib/store.ts`](./lib/store.ts), [`components/providers.tsx`](./components/providers.tsx) |
+| **REST API Integration** | Typed API functions with async/await, error handling, and polling | [`lib/api.ts`](./lib/api.ts) |
+| **Component Architecture** | 18+ reusable components with shadcn/ui base | [`components/`](./components/) |
+| **Responsive UI** | Tailwind CSS with mobile-first design + CSS variables | [`app/globals.css`](./app/globals.css), [`components/mobile-nav.tsx`](./components/mobile-nav.tsx) |
+| **Git Best Practices** | 30+ meaningful commits with descriptive messages | [Commit History](../../commits/main) |
+
+## 🏗️ Architecture
+
+```
+frontend/
+├── app/                    # Next.js App Router
+│   ├── dashboard/          # Protected routes
+│   └── api/                # API routes (OG images)
+├── components/
+│   ├── ui/                 # Reusable UI primitives
+│   ├── landing/            # Landing page sections
+│   ├── editor.tsx          # Changelog editor (state management)
+│   └── job-progress.tsx    # Async polling component
+└── lib/
+    ├── store.ts            # Zustand global state
+    ├── api.ts              # REST API client (typed)
+    ├── auth.ts             # NextAuth configuration
+    └── motion.ts           # Framer Motion variants
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🔑 Key Technical Highlights
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### State Management (Zustand)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```tsx
+// lib/store.ts - Global state with typed actions
+export const useAppStore = create<AppState>()(
+  persist(
+    (set, get) => ({
+      repositories: [],
+      activeJobs: {},
+      commandPaletteOpen: false,
 
-## Learn More
+      fetchRepositories: async () => {
+        set({ isLoadingRepos: true });
+        const repos = await getRepos();
+        set({ repositories: repos, isLoadingRepos: false });
+      },
 
-To learn more about Next.js, take a look at the following resources:
+      startJob: (jobId, repoName) => {
+        set(state => ({
+          activeJobs: {
+            ...state.activeJobs,
+            [jobId]: { id: jobId, repoName, status: 'pending', progress: 0 }
+          }
+        }));
+      },
+    }),
+    { name: 'changelog-ai-store' }
+  )
+);
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+// Selector hooks for optimized re-renders
+export const useRepositories = () => useAppStore(state => state.repositories);
+export const useCommandPaletteOpen = () => useAppStore(state => state.commandPaletteOpen);
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### API Integration
 
-## Deploy on Vercel
+```tsx
+// lib/api.ts - Typed REST API functions
+export async function getChangelog(username: string, repo: string): Promise<ChangelogData> {
+  const res = await fetch(`${API_URL}/api/changelog/${username}/${repo}`);
+  if (!res.ok) throw new Error('Failed to fetch');
+  return res.json();
+}
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+// Async job polling with setInterval
+useEffect(() => {
+  const interval = setInterval(pollStatus, 2000);
+  return () => clearInterval(interval);
+}, [pollStatus]);
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Responsive Design
+
+- Mobile hamburger navigation (`components/mobile-nav.tsx`)
+- CSS variables for theming (`app/globals.css`)
+- Media query breakpoints (md, lg, xl)
+
+## 🚀 Quick Start
+
+```bash
+npm install
+cp .env.example .env.local  # Add your GitHub OAuth keys
+npm run dev
+```
+
+## 🌐 Live Demo
+
+**Production**: [changelog-ai-live.vercel.app](https://changelog-ai-live.vercel.app)

@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 import { useTheme } from "next-themes";
 import { signOut } from "next-auth/react";
+import { useAppStore, useCommandPaletteOpen } from "@/lib/store";
 
 interface CommandItem {
     id: string;
@@ -28,7 +29,10 @@ interface CommandItem {
 }
 
 export function CommandPalette() {
-    const [isOpen, setIsOpen] = useState(false);
+    // ZUSTAND: Global state for command palette visibility
+    const isOpen = useCommandPaletteOpen();
+    const { setCommandPaletteOpen, toggleCommandPalette } = useAppStore();
+
     const [search, setSearch] = useState("");
     const [selectedIndex, setSelectedIndex] = useState(0);
     const router = useRouter();
@@ -90,7 +94,7 @@ export function CommandPalette() {
         // Open with CMD+K or CTRL+K
         if ((e.metaKey || e.ctrlKey) && e.key === "k") {
             e.preventDefault();
-            setIsOpen(prev => !prev);
+            toggleCommandPalette();
             setSearch("");
             setSelectedIndex(0);
         }
@@ -98,7 +102,7 @@ export function CommandPalette() {
         if (!isOpen) return;
 
         if (e.key === "Escape") {
-            setIsOpen(false);
+            setCommandPaletteOpen(false);
         } else if (e.key === "ArrowDown") {
             e.preventDefault();
             setSelectedIndex(prev => Math.min(prev + 1, filteredCommands.length - 1));
@@ -109,7 +113,7 @@ export function CommandPalette() {
             e.preventDefault();
             if (filteredCommands[selectedIndex]) {
                 filteredCommands[selectedIndex].action();
-                setIsOpen(false);
+                setCommandPaletteOpen(false);
             }
         }
     }, [isOpen, filteredCommands, selectedIndex]);
@@ -133,7 +137,7 @@ export function CommandPalette() {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        onClick={() => setIsOpen(false)}
+                        onClick={() => setCommandPaletteOpen(false)}
                     />
 
                     {/* Command Palette */}
@@ -174,12 +178,12 @@ export function CommandPalette() {
                                                 <button
                                                     key={cmd.id}
                                                     className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left transition-colors ${flatIndex === selectedIndex
-                                                            ? "bg-primary/10 text-primary"
-                                                            : "hover:bg-muted"
+                                                        ? "bg-primary/10 text-primary"
+                                                        : "hover:bg-muted"
                                                         }`}
                                                     onClick={() => {
                                                         cmd.action();
-                                                        setIsOpen(false);
+                                                        setCommandPaletteOpen(false);
                                                     }}
                                                     onMouseEnter={() => setSelectedIndex(flatIndex)}
                                                 >
