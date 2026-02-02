@@ -64,9 +64,13 @@ export async function updateChangelog(username: string, repo: string, version: s
     return res.json();
 }
 
-export async function getRepos(): Promise<string[]> {
+export async function getRepos(username?: string): Promise<string[]> {
     try {
-        const res = await fetch(`${API_URL}/api/changelog/list`, { cache: 'no-store' });
+        const url = username
+            ? `${API_URL}/api/changelog/list?username=${username}`
+            : `${API_URL}/api/changelog/list`;
+
+        const res = await fetch(url, { cache: 'no-store' });
         if (!res.ok) return [];
         const data = await res.json();
         return data.repos || [];

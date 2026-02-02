@@ -1,11 +1,21 @@
 import { getRepos } from "@/lib/api";
 import { AddRepoDialog } from "@/components/add-repo-dialog";
 import { RepoList } from "@/components/repo-list";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
+import { redirect } from "next/navigation";
 
 export const dynamic = 'force-dynamic';
 
 export default async function DashboardHome() {
-    const repos = await getRepos();
+    const session = await getServerSession(authOptions);
+
+    if (!session?.user) {
+        redirect("/api/auth/signin");
+    }
+
+    // Fetch repos scoped to logged-in user
+    const repos = await getRepos(session.user.name || undefined);
 
     return (
         <div className="max-w-6xl mx-auto space-y-8">

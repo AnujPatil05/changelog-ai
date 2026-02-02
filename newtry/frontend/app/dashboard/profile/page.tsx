@@ -19,8 +19,8 @@ export default async function ProfilePage() {
     const user = session.user;
     const joinDate = new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
 
-    // Fetch real data from API
-    const repos = await getRepos();
+    // Fetch real data from API (Scoped to user)
+    const repos = await getRepos(user?.name || undefined);
 
     // Calculate real stats
     let totalChangelogs = 0;

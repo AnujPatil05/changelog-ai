@@ -76,10 +76,10 @@ export const useAppStore = create<AppState>()(
             // REPOSITORY ACTIONS
             // ----------------------------------------
 
-            fetchRepositories: async () => {
+            fetchRepositories: async (username?: string) => {
                 set({ isLoadingRepos: true, repoError: null });
                 try {
-                    const repos = await getRepos();
+                    const repos = await getRepos(username);
                     set({
                         repositories: repos.map(name => ({
                             name,

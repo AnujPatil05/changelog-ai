@@ -9,9 +9,20 @@ const router = Router();
 
 router.get('/list', async (req, res) => {
     try {
-        const result = await query(
-            `SELECT DISTINCT repo_name FROM changelogs ORDER BY repo_name ASC`
-        );
+        const { username } = req.query;
+
+        let queryText = `SELECT DISTINCT repo_name FROM changelogs`;
+        const queryParams: any[] = [];
+
+        // Filter by username if provided (Security Fix: Prevent data leakage)
+        if (username) {
+            queryText += ` WHERE repo_name LIKE $1`;
+            queryParams.push(`${username}/%`);
+        }
+
+        queryText += ` ORDER BY repo_name ASC`;
+
+        const result = await query(queryText, queryParams);
         res.json({ repos: result.rows.map((r: any) => r.repo_name) });
     } catch (error) {
         console.error('Error fetching repo list:', error);
