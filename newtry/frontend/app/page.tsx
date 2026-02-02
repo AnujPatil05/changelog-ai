@@ -18,9 +18,9 @@ export default function Home() {
           <Link className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors" href="#security">
             Security
           </Link>
-          <Link className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors" href="#pricing">
-            Pricing
-          </Link>
+          <span className="text-sm font-medium text-muted-foreground/60 cursor-not-allowed">
+            Pricing (Coming Soon)
+          </span>
           <ThemeToggle />
         </nav>
       </header>
