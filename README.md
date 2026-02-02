@@ -101,6 +101,4 @@ GITHUB_TOKEN=ghp_...
 
 **Production**: [changelog-ai-live.vercel.app](https://changelog-ai-live.vercel.app)
 
-## 📝 License
 
-MIT
