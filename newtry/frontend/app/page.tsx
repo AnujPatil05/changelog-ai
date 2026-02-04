@@ -12,13 +12,13 @@ export default function Home() {
           Changelog AI
         </Link>
         <nav className="ml-auto flex items-center gap-4 sm:gap-6">
-          <Link className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors" href="#features">
+          <Link className="hidden md:block text-sm font-medium text-muted-foreground hover:text-foreground transition-colors" href="#features">
             Features
           </Link>
-          <Link className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors" href="#security">
+          <Link className="hidden md:block text-sm font-medium text-muted-foreground hover:text-foreground transition-colors" href="#security">
             Security
           </Link>
-          <span className="text-sm font-medium text-muted-foreground/60 cursor-not-allowed">
+          <span className="hidden md:block text-sm font-medium text-muted-foreground/60 cursor-not-allowed whitespace-nowrap">
             Pricing (Coming Soon)
           </span>
           <ThemeToggle />
